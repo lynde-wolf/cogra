@@ -25,7 +25,8 @@ jobs:
       matrix:
         include:
           - python: "3.10"
-            pins: "matplotlib==3.8.* numpy<2"     # the oldest supported matplotlib
+            # each pin quoted: unquoted, the shell reads "<2" as input from a file "2"
+            pins: '"matplotlib==3.8.*" "numpy<2"'     # the oldest supported matplotlib
           - python: "3.12"
             pins: ""
           - python: "3.13"
