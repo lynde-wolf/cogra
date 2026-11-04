@@ -1,0 +1,45 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Lint and format
+        run: |
+          uvx ruff check src tests examples
+          uvx ruff format --check src tests examples
+      - name: Type check
+        run: uv run --extra dev mypy
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - python: "3.10"
+            pins: "matplotlib==3.8.* numpy<2"     # the oldest supported matplotlib
+          - python: "3.12"
+            pins: ""
+          - python: "3.13"
+            pins: ""
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install
+        run: |
+          uv venv
+          uv pip install -e ".[test,paper]" ${{ matrix.pins }}
+      - name: Test
+        # the paper end-to-end test uses the runner's Google Chrome;
+        # the R test is skipped unless ggplot2 is installed
+        run: uv run --no-sync pytest -q --cov --cov-report=term-missing

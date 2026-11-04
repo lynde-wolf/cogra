@@ -1,0 +1,98 @@
+% Compile: lualatex demo && bibtex demo && lualatex demo && lualatex demo
+\documentclass[10pt]{article}
+\usepackage[journal]{cogra}   % try [twocol], [thesis], or add aged
+\cograrunning{E. G. Pellham and D. R. Okonkwo}{Goal-Box Illumination and Running Speed}
+
+\begin{document}
+\cogratitle{Running Speed in a Straight Alley as a Function of Goal-Box Illumination}
+\cograauthor{Edwin G. Pellham and Dorothy R. Okonkwo}
+\cograaffil{Department of Psychology, Halvorsen College}
+\cogranote{This article is fictional. It was written to show the cogra
+style, and its authors, institution, data and references do not exist.}
+\cogramaketitle
+
+\begin{cograsummary}
+Two groups of hungry rats were run to food in a straight alley whose goal
+box was either dimly or brightly lit. Running speed rose over trials in
+both groups but reached a lower level when the goal box was bright. The
+result is discussed in terms of a competing tendency to avoid the lighted
+box.
+\end{cograsummary}
+
+It is commonly supposed that the speed with which an animal approaches a
+goal depends on what is found there, and that the surroundings of the goal
+matter little once the animal has been fed in them a few times. The
+supposition has not often been put to test. \citet{brandt1949} reported
+that rats ran more slowly to a goal box painted white than to one painted
+black, but attributed the difference to the reflectance of the box rather
+than to its illumination, and the matter has been left there since
+\citep{halloran1953}. The present experiment varied the illumination of
+the goal box directly, holding its surfaces constant, to see whether the
+lighting of the place in which food is found alters the speed of running
+to it.\footnote{A symbol, not a number, marks each note, as was common in
+journals of the period.}
+
+\section{Method}
+\subsection{Subjects}
+The subjects were 24 male albino rats, about 100 days old at the start of
+the experiment, maintained at 85\% of their free-feeding weight
+throughout. They were assigned at random to two groups of 12.
+
+\subsubsection{Apparatus and procedure}
+The alley was a straight runway 6 ft long, painted a uniform flat gray,
+with a start box at one end and a goal box at the other. A photocell at
+each end started and stopped an electric clock. For the dim group the goal
+box was lit by a 7.5-w lamp behind a diffusing screen; for the bright
+group the same lamp was replaced by one of 60 w. Each rat received 10
+trials a day for 6 days, with a pellet of food in the goal box on every
+trial. Running time was converted to speed in feet per second.
+
+\section{Results}
+Mean running speed in each block of 10 trials is shown in Fig.~1, and the
+values for the final block are given in Table~1. Both groups ran faster as
+training went on, but the bright group reached a lower level than the dim
+group from the third block onward \citep[cf.][]{brandt1949}.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[cogra, width=0.82\linewidth, height=0.55\linewidth,
+  xlabel={Blocks of 10 trials}, ylabel={Running speed (ft/sec)},
+  xmin=0.5, xmax=6.5, ymin=0, ymax=3.2, xtick={1,...,6},
+  legend pos=north west]
+\addplot coordinates {(1,0.62)(2,1.18)(3,1.71)(4,2.14)(5,2.41)(6,2.56)};
+\addplot coordinates {(1,0.58)(2,1.02)(3,1.33)(4,1.55)(5,1.68)(6,1.74)};
+\legend{Dim goal box,Bright goal box}
+\end{axis}
+\end{tikzpicture}
+\caption{Mean running speed as a function of blocks of trials for the
+dim and bright groups, plotted in the open and filled circle convention
+of the period.}
+\end{figure}
+
+\begin{table}[t]
+\caption{Running speed and latency on the final block of trials}
+\centering\small
+\begin{tabular}{lcc}
+\toprule
+Group & Speed (ft/sec) & Start latency (sec) \\
+\midrule
+Dim goal box    & 2.56 & 1.4 \\
+Bright goal box & 1.74 & 2.1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Discussion}
+The lighting of the goal box, which bore no relation to the food found in
+it, lowered the speed with which the animals ran to it. One account
+supposes that a bright place arouses in the rat a tendency to withdraw,
+which competes with the approach set up by feeding
+\citep{marchetti1955}; another, that bright light reduces the value of the
+reward itself \citep{strand1957}. The two can be separated by varying the
+illumination of the alley while holding that of the goal box constant, and
+an experiment of this kind is now in progress.
+
+\bibliographystyle{apalike}
+\bibliography{demo}
+\end{document}

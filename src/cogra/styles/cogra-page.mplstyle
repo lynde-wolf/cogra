@@ -1,0 +1,11 @@
+# cogra-page: across both columns of the cogra.paper page (393 pt = 5.46 in),
+# with type at the size it prints. Use on top of cogra:
+#   plt.style.use(["cogra", "cogra-page"])
+figure.figsize:     5.46, 3.0
+font.size:          9
+axes.labelpad:      5
+lines.linewidth:    1.0
+lines.markersize:   5
+xtick.major.size:   3.5
+ytick.major.size:   3.5
+legend.fontsize:    8

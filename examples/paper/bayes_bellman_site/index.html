@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adaptive Behavior as Bayesian Potential Minimization: A Unified Theory of Learning, Inference, and Decision</title>
+<link rel="stylesheet" href="apa1980.css">
+<style>:root { } @page { size: 531pt 726pt; margin: 0; }</style>
+<script>
+window.MathJax = {
+  loader: { load: ["input/tex", "output/svg"], paths: { "mathjax-schola": "./mathjax/mathjax-schola" } },
+  tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]], tags: "ams" },
+  svg: { font: "mathjax-schola", fontCache: "none", displayOverflow: "scale" },
+  startup: { typeset: false }
+};
+</script>
+<script src="mathjax/startup.js"></script>
+</head>
+<body class="worn">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="cogra-letterpress" x="-1%" y="-1%" width="102%" height="102%" color-interpolation-filters="sRGB">
+    <!-- 1. Wobble: edges are not machine-straight -->
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="wobNoise"/>
+    <feDisplacementMap id="mcWobble" in="SourceGraphic" in2="wobNoise" scale="1.3" xChannelSelector="R" yChannelSelector="G" result="wobbled"/>
+    <!-- 2. Ink spread with a noisy threshold: fatter, ragged strokes -->
+    <feGaussianBlur id="mcSpread" in="wobbled" stdDeviation="0.5" result="spread"/>
+    <feTurbulence type="fractalNoise" baseFrequency="1.7" numOctaves="1" seed="8" result="edgeNoise"/>
+    <feColorMatrix in="edgeNoise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1 0 0 0 0" result="edgeA"/>
+    <feComposite id="mcRough" in="spread" in2="edgeA" operator="arithmetic" k1="0" k2="1" k3="-0.32" k4="0.12" result="noisy"/>
+    <feComponentTransfer in="noisy" result="inked">
+      <feFuncA type="linear" slope="5" intercept="-1.1"/>
+    </feComponentTransfer>
+    <!-- 3. Uneven, faded inking: broad patches plus fine mottle -->
+    <feTurbulence type="fractalNoise" baseFrequency="0.011 0.02" numOctaves="2" seed="21" result="patch"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="1" seed="5" result="mottle"/>
+    <feComposite in="patch" in2="mottle" operator="arithmetic" k2="0.75" k3="0.35" result="dens"/>
+    <feColorMatrix in="dens" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1.6 0 0 0 -0.15" result="densA"/>
+    <feComponentTransfer in="densA" result="density">
+      <feFuncA id="mcFade" type="table" tableValues="0.45 0.75 0.92 1 1"/>
+    </feComponentTransfer>
+    <feComposite in="inked" in2="density" operator="in"/>
+  </filter>
+  <filter id="cogra-scan" x="-1%" y="-1%" width="102%" height="102%" color-interpolation-filters="sRGB">
+    <!-- 1-bit scan: slight wobble, fill-in, letter-scale weight variation, hard threshold -->
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="sWob"/>
+    <feDisplacementMap id="mcScanWobble" in="SourceGraphic" in2="sWob" scale="0.8" xChannelSelector="R" yChannelSelector="G" result="sWobbled"/>
+    <feGaussianBlur id="mcScanSpread" in="sWobbled" stdDeviation="0.45" result="sSpread"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="1" seed="12" result="sWeight"/>
+    <feColorMatrix in="sWeight" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1 0 0 0 0" result="sWeightA"/>
+    <feComposite id="mcScanWeight" in="sSpread" in2="sWeightA" operator="arithmetic" k2="1" k3="0.28" k4="-0.17" result="sShifted"/>
+    <feComponentTransfer in="sShifted">
+      <feFuncA type="discrete" tableValues="0 0 1 1 1 1"/>
+    </feComponentTransfer>
+  </filter>
+</svg>
+
+<div class="outside"><label><input type="checkbox" id="wornToggle" checked> Worn printing</label></div>
+<div id="book" data-columns="2" data-start="1"
+     data-rh-verso="Thornquist, Okafor-Lyle, and Brandauer" data-rh-recto="Bayes–Bellman consistency"></div>
+<div id="source" lang="en">
+<div class="front-src">
+<p class="masthead">Journal of Unified Behavioral Theory<br>2026, Vol. 3, No. 1, 1–14</p>
+<h1 class="title">Adaptive Behavior as Bayesian Potential Minimization: A Unified Theory of Learning, Inference, and Decision</h1>
+<p class="authors">Margaret A. Thornquist<sup>1</sup>, Desmond P. Okafor-Lyle<sup>2</sup>, and Ilse V. Brandauer<sup>1</sup></p>
+<p class="affil"><sup>1</sup>Department of Psychology, Corbridge University<br><sup>2</sup>Center for Adaptive Systems, Whitlow Institute</p>
+<div class="abstract"><p>Learning, inference, and decision making have each been given a theory of
+their own, and for some decades the three theories have been on speaking
+terms only through the occasional shared appendix. We show that they are
+jointly determined by a single evolving belief state and one temporally
+extended objective. Our central result, the Bayes–Bellman consistency
+theorem, gives a necessary and sufficient condition relating Bayesian
+belief updating to entropy-regularized action selection in partially
+observable environments. Sequential probability ratio testing, diffusion
+decision processes, Rescorla–Wagner learning, Shepard&rsquo;s law of
+generalization, rational analysis, and variational free energy all follow
+as special cases, some more willingly than others. In a preregistered
+experiment (<em>N</em> = 222), participants valued information according to its
+future instrumental use, and a model imposing the theorem&rsquo;s constraint
+predicted held-out choices better than one that estimated learning and
+choice separately. One preregistered prediction failed; we explain why
+this is less damaging than it looks. We argue that several familiar
+distinctions in cognitive theory (learning versus decision, model-based
+versus model-free, exploration versus exploitation) describe levels of
+analysis rather than different problems, and can be retired with honors.</p><p class="kw"><i>Keywords:</i> adaptive behavior; Bayesian inference; value of information; sequential sampling; associative learning; cognitive architecture</p></div>
+</div>
+<div class="authornote-src"><p class="note">This article is fictional. It was written to show the cogra package. Its authors, institutions, journal, data, and experiment do not exist, and neither does the paper by Soren and Vale (2014). The other references are real works, cited for what they actually report. The Bayes–Bellman consistency theorem is the soft Bellman equation for belief-state MDPs, under a new name.</p><p class="note">Correspondence concerning this article should be addressed to Margaret A. Thornquist, Department of Psychology, Corbridge University.</p></div>
+<div class="firstfoot-src">An example set with cogra.paper; not a published article.</div>
+<div class="flowsrc">
+<p>Cognitive science has never lacked theories of adaptation. What it has
+lacked are theories of adaptation that agree with one another.</p>
+<p>The Rescorla–Wagner model (Rescorla &amp; Wagner, 1972) gave associative
+learning a quantitative account in terms of prediction error. Wald&rsquo;s (1947)
+sequential probability ratio test gave decision making an optimal stopping
+rule, and the diffusion model (Ratcliff, 1978; Ratcliff &amp; McKoon, 2008) gave
+it response times. Shepard (1987) gave generalization a universal law.
+Rational analysis (Anderson, 1990) asked what problem cognition is solving,
+and the free-energy principle (Friston, 2010) answered on behalf of
+perception, action, and a good deal else. Each tradition is remarkably
+successful within its own walls. The walls are the problem.</p>
+<p>Learning models specify how an internal representation changes. Decision
+models specify how behavior depends on that representation. How the two
+relate is usually left to an architectural assumption, stated once in the
+introduction and not mentioned again.</p>
+<h3 class="h2">The Separation of Learning and Choice</h3>
+<p>Consider a participant choosing between a familiar option with a known
+reward rate and an unfamiliar option that pays less but reveals something
+about the environment. A model-based decision theory can price the
+information. An associative model can track how the unfamiliar option&rsquo;s
+value changes after feedback. A sequential sampling model can describe the
+evidence behind the eventual keypress. Each captures part of the behavior,
+and none constrains the others. A learning model estimates one set of
+beliefs, a decision model estimates a separate set of preferences, and the
+two are introduced to each other in the Discussion.</p>
+<p>We take it as a minimal requirement of a theory of adaptive behavior that
+the beliefs an agent holds should have something to do with what it does.
+The informational consequences of an action must be evaluated with the
+same transition structure that governs belief updating. Otherwise a model
+can attribute behavior to learning and decision processes that are each
+plausible and jointly incoherent, which describes a fair share of the
+literature.</p>
+<h2 class="h1">Theoretical Framework</h2>
+<h3 class="h2">Belief States</h3>
+<p>Let the environment have a finite state space \(S\), actions \(A\), and
+observations \(O\). The organism does not see the state. It maintains a
+belief \(b_t(s) = P(s_t = s \mid h_t)\) given its history \(h_t\) of actions
+and observations, and after action \(a\) and observation \(o\) it updates by
+Bayes&rsquo; rule:</p>
+<p class="display nosplit">\[b'(s') = \frac{P(o \mid s', a) \sum_{s} P(s' \mid s, a)\, b(s)}{\sum_{\tilde s} P(o \mid \tilde s, a) \sum_{s} P(\tilde s \mid s, a)\, b(s)} \tag{1}\]</p>
+<p>We write this update as \(b' = \tau(b, a, o)\). Actions therefore change not
+only what the organism receives but what it will believe.</p>
+<h3 class="h2">The Regularized Value Function</h3>
+<p>Let \(r(b, a) = \sum_s b(s)\, r(s, a)\) be the expected immediate reward of
+action \(a\) under belief \(b\). The organism maximizes discounted reward plus
+an entropy bonus on its own choices,</p>
+<p class="display nosplit">\[\begin{aligned} J(\pi \mid b) = \mathbb{E}_{\pi} \Big[ \sum_{t=0}^{\infty} \gamma^{t} \big( &amp; r(b_t, a_t) \\ &amp; + \alpha H(\pi(\cdot \mid b_t)) \big) \Big] \end{aligned} \tag{2}\]</p>
+<p>with \(0 \le \gamma &lt; 1\) and \(\alpha &gt; 0\). The entropy term provides a
+principled account of stochastic responding and an unprincipled excuse for
+most of the rest. For a value function \(V\), the value of an action is</p>
+<p class="display nosplit">\[\begin{aligned} Q_V(b, a) = {} &amp; r(b, a) \\ &amp; + \gamma \sum_{o} p(o \mid b, a)\, V\big(\tau(b, a, o)\big) \end{aligned} \tag{3}\]</p>
+<p>and the soft Bellman operator is</p>
+<p class="display nosplit">\[(\mathcal{T} V)(b) = \alpha \log \sum_{a} \exp\!\left( \frac{Q_V(b, a)}{\alpha} \right) \tag{4}\]</p>
+<p>The value of an action thus depends on its immediate reward and on the
+expected value of the beliefs it leaves behind.</p>
+<h3 class="h2">A Representational Antecedent</h3>
+<p>Soren and Vale (2014) showed that any strictly positive transition kernel
+and strictly positive policy on finite spaces admit separable potentials,
+unique up to additive constants. The lemma lets state transitions and
+action selection sit within a common trajectory representation. Its chief
+virtue is also its chief defect: it allows a system to learn by one rule
+and choose by another, and asks nothing about whether the two have met.
+The present theory replaces this permissive correspondence with a common
+objective.</p>
+<h2 class="h1">The Bayes–Bellman Consistency Theorem</h2>
+<p><em>Theorem 1.</em> For a finite partially observable decision process with
+bounded rewards, \(0 \le \gamma &lt; 1\), and \(\alpha &gt; 0\), there is a unique
+bounded \(V^*\) with \(V^* = \mathcal{T} V^*\). The unique optimal policy is
+\(\pi^*(a \mid b) \propto \exp[Q^*(b, a)/\alpha]\), and for any reference
+action \(a_0\),</p>
+<p class="display nosplit">\[\begin{aligned} \alpha \log \frac{\pi^*(a \mid b)}{\pi^*(a_0 \mid b)} = {} &amp; r(b, a) - r(b, a_0) \\ &amp; + \gamma\, \Delta V(b, a, a_0) \end{aligned} \tag{5}\]</p>
+<p>where</p>
+<p class="display nosplit">\[\begin{aligned} \Delta V(b, a, a_0) = {} &amp; \mathbb{E}_{o \mid b, a}\, V^*\big(\tau(b, a, o)\big) \\ &amp; - \mathbb{E}_{o \mid b, a_0}\, V^*\big(\tau(b, a_0, o)\big). \end{aligned} \tag{6}\]</p>
+<p>Conversely, a strictly positive policy is optimal if and only if it
+satisfies Equation 5.</p>
+<p><em>Proof.</em> Because log-sum-exp is nonexpansive, \(|Q_V - Q_W| \le \gamma \lVert V - W \rVert_\infty\) gives</p>
+<p class="display nosplit">\[\lVert \mathcal{T} V - \mathcal{T} W \rVert_\infty \le \gamma\, \lVert V - W \rVert_\infty , \tag{7}\]</p>
+<p>so \(\mathcal{T}\) is a contraction and the Banach fixed-point theorem gives
+existence and uniqueness of \(V^*\). At each belief the entropy-regularized
+objective is strictly concave in the action distribution, so its maximizer
+is unique; the first-order condition gives the softmax of \(Q^*/\alpha\).
+Taking the ratio for two actions gives Equation 5. The odds determine a
+normalized positive policy, which gives the converse. ∎</p>
+<p>The proof is short. We regard this as a strength.<sup class="fn" data-n="1">1</sup></p>
+<p>Equation 5 says that the relative preference for two actions is fixed by
+their difference in immediate reward and their difference in the value of
+what they teach. An action can be worse now and better on balance, and the
+theorem says exactly by how much. If an agent&rsquo;s preferences do not show
+this, then at least one of four things is false: the assumed transition
+model represents its beliefs, the assumed reward represents its goals, its
+policy is entropy-regularized optimal, or it evaluates the future at all.
+The framework therefore turns &ldquo;the participants were irrational&rdquo; from a
+conclusion into a list.</p>
+<h2 class="h1">Recovery of Established Theories</h2>
+<p><em>Sequential sampling.</em> With belief \(b_t = P(H_1 \mid y_{1:t})\), the log
+posterior odds accumulate as</p>
+<p class="display nosplit">\[L_t = \log \frac{P(H_1)}{P(H_0)} + \sum_{i=1}^{t} \log \frac{p(y_i \mid H_1)}{p(y_i \mid H_0)} \tag{8}\]</p>
+<p>and the choice to accept \(H_1\), accept \(H_0\), or keep sampling yields a
+continuation region bounded by stopping regions. Wald&rsquo;s test is recovered
+in the low-temperature limit under its classical cost assumptions, and the
+diffusion model,</p>
+<p class="display nosplit">\[dX_t = \mu\, dt + \sigma\, dW_t , \tag{9}\]</p>
+<p>follows from the continuous approximation (Bogacz, Brown, Moehlis, Holmes,
+&amp; Cohen, 2006). Sequential sampling is not a separate theory of response
+generation. It is adaptive control of a posterior that happens to have a
+stopwatch attached.</p>
+<p><em>Associative learning.</em> The Rescorla–Wagner update and the Kalman filter
+(Kalman, 1960) for a random-walk latent value \(\theta_t\) are</p>
+<p class="display nosplit">\[\begin{aligned} V_{t+1} &amp;= V_t + \kappa (\lambda_t - V_t), \\ \hat\theta_{t+1} &amp;= \hat\theta_t + K_t (\lambda_t - \hat\theta_t), \end{aligned} \tag{10}\]</p>
+<p>and once the gain \(K_t\) reaches its steady state, setting \(K = \kappa\)
+makes them the same. The Rescorla–Wagner model has been a Kalman filter for
+some time; we are simply the first to insist on it at length. The new
+requirement is that the resulting estimate also constrain what the
+organism does next. A learning model that updates an associative strength
+but never says how the update changes the value of future actions is, as a
+theory of adaptive behavior, a theory of half of it.</p>
+<p><em>Generalization.</em> Shepard&rsquo;s law, \(G(x, x') = \exp[-c\, d(x, x')]\), is a
+potential over stimulus space. Psychological distance governs not only
+how responses spread but how information gathered about one stimulus
+transfers to the next, so generalization and active learning are two views
+of one geometry.</p>
+<p><em>Rational analysis and free energy.</em> Defining the potential as negative
+expected utility recovers rational analysis in the deterministic limit,
+with the amendment that utility must include what an action reveals.
+Variational free energy,</p>
+<p class="display nosplit">\[\begin{aligned} F[q] &amp;= \mathbb{E}_{q(z)}\big[\log q(z) - \log p(o, z)\big] \\ &amp;= D_{\mathrm{KL}}\big(q(z) \,\Vert\, p(z \mid o)\big) - \log p(o), \end{aligned} \tag{11}\]</p>
+<p>is one particular objective of this kind. The free-energy principle has
+been shown to explain a great many things. The present framework shares
+this property, and has the grace to say so in a limitations section.</p>
+<h2 class="h1">Method</h2>
+<h3 class="h2">Participants</h3>
+<p class="small">We recruited 240 adults online. Eighteen were excluded under preregistered
+criteria (7 failed attention checks, 5 completed fewer than 80% of trials,
+4 responded at random, and 2 reported substantial interruptions), leaving
+222 (118 women, 99 men, 5 another or unreported gender; mean age 34.6
+years, <em>SD</em> = 10.8). Participants were paid $3.50 plus a performance bonus.</p>
+<h3 class="h2">Task</h3>
+<p class="small">On each trial participants chose between two abstract symbols. An
+exploitation action paid reliably but said little about the hidden state
+of the environment. An information-seeking action paid less but returned
+diagnostic feedback. Four conditions, two blocks of 30 trials each, varied
+whether that feedback was of any later use (Table 1). The critical
+contrast is between the high-information and information-irrelevant
+conditions, in which the feedback was identical but only in the first did
+it predict later rewards. A general fondness for information would not
+distinguish them; a theory of its instrumental value must.</p>
+<figure class="table" data-fig="t1"><figcaption><span class="lab">Table 1</span> <span class="tt">Conditions of the Experiment</span></figcaption><table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Immediate reward</th>
+<th>Information value</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>High-information</td>
+<td>Lower</td>
+<td>High</td>
+<td>Instrumental information seeking</td>
+</tr>
+<tr>
+<td>Low-information</td>
+<td>Lower</td>
+<td>Low</td>
+<td>Control for immediate reward</td>
+</tr>
+<tr>
+<td>Reward-dominant</td>
+<td>Higher</td>
+<td>Low</td>
+<td>Baseline exploitation</td>
+</tr>
+<tr>
+<td>Information-irrelevant</td>
+<td>Lower</td>
+<td>High, not useful later</td>
+<td>Rule out novelty preference</td>
+</tr>
+</tbody>
+</table></figure>
+<p class="small"><span class="runin">Models.</span> We compared four hierarchical Bayesian models: (1) immediate reward only;
+(2) independent learning and choice, with separate learning-rate,
+reward-sensitivity, and choice parameters; (3) a Bayesian belief-state
+model whose action values include future reward without the full
+cross-temporal constraint; and (4) the Bayes–Bellman model, in which a
+single soft-optimal value function, Equation 4, governs both belief-driven
+learning and choice, with discount, inverse temperature, and reward
+sensitivity as participant parameters. Models were compared by
+participant-level cross-validation.</p>
+<h2 class="h1">Results</h2>
+<p>Participants chose the information-seeking option more often when its
+feedback would be useful later (.61) than when the same feedback would not
+(.48), a difference of .13, 95% CI [.09, .17], despite its lower immediate
+payoff (Figure 1). The result is inconsistent with an immediate-reward
+account. It is also inconsistent with simple novelty preference, which
+would treat the two conditions alike. That participants still chose the
+uninformative information nearly half the time we attribute to curiosity,
+which the model does not include and which we do not intend to encourage.</p>
+<figure data-fig="1"><img class="fig-clean" src="figures/infoseek.png" style="width:230.4pt" alt="Figure 1"><img class="fig-scan" src="figures/infoseek-scan.png" style="width:230.4pt" alt="Figure 1"><figcaption><span class="lab">Figure 1.</span> Proportion of information-seeking choices in each condition. Vertical bars show 95% confidence intervals.</figcaption></figure>
+<p>After informative feedback, preference for the information-seeking option
+changed by .084, 95% CrI [.052, .116]; after noninformative feedback it
+changed by .019 [−.004, .042]. Participants were sensitive to the
+diagnosticity of feedback, not merely its arrival.</p>
+<figure class="table" data-fig="t2"><figcaption><span class="lab">Table 2</span> <span class="tt">Held-Out Predictive Performance Relative to the Bayes–Bellman Model</span></figcaption><table>
+<thead>
+<tr>
+<th>Model</th>
+<th style="text-align: right;">Relative ELPD</th>
+<th style="text-align: right;"><em>SE</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Immediate reward</td>
+<td style="text-align: right;">−31.8</td>
+<td style="text-align: right;">8.4</td>
+</tr>
+<tr>
+<td>Independent learning and choice</td>
+<td style="text-align: right;">−8.6</td>
+<td style="text-align: right;">4.1</td>
+</tr>
+<tr>
+<td>Bayesian belief-state</td>
+<td style="text-align: right;">−3.2</td>
+<td style="text-align: right;">2.9</td>
+</tr>
+<tr>
+<td>Bayes–Bellman consistency</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">—</td>
+</tr>
+</tbody>
+</table></figure>
+<p>The Bayes–Bellman model predicted held-out choices better than the
+independent learning-and-choice model, ΔELPD = 8.6, <em>SE</em> = 4.1 (Table 2).
+The advantage was concentrated in the high-information condition and was
+small where information had no future use, which is the pattern the
+theory predicts and the pattern a merely flexible model would not bother
+to produce.<sup class="fn" data-n="2">2</sup></p>
+<h3 class="h2">The Failed Transfer Prediction</h3>
+<p>We preregistered that participants with higher learning rates in the early
+blocks would adapt faster after environmental reversals. They did not,
+<em>r</em> = .08, 95% CI [−.05, .21]. We preregistered this prediction because we
+believed it, and we report its failure because we preregistered it. The
+failure was concentrated among participants who appeared to keep different
+learning rates for stable and changing environments, which suggests the
+stationary transition model needs to represent uncertainty about
+volatility. It does not touch the theorem, which, being a theorem, is not
+in a position to fail.</p>
+<h2 class="h1">Discussion</h2>
+<p>An organism does not first learn about its environment and then decide,
+in a separate office, what to do about it. The value of an action depends
+on what taking it will teach, and the value of information depends on the
+actions it will later support. These are not two processes in sequence.
+They are one process described twice.</p>
+<p><em>Model-based and model-free learning.</em> The distinction has had a long and
+productive career, much of it spent being distinguished. On the present
+view the two are approximations to one problem: a model-based learner
+computes the value of future beliefs, and a model-free learner caches a
+summary of it. They differ in cost and in how well they generalize, not in
+what they are for. We predict that apparently model-free behavior will
+become more sensitive to structure whenever structure becomes worth
+representing, and that this will be described, when it is found, as a
+surprising interaction.</p>
+<p><em>Exploration and exploitation.</em> Exploration has often been treated as a
+second motive, competing with the wish for reward. It needs no motive of
+its own, any more than buying a map needs its own appetite. Information
+has value whenever it improves later choices, and the same action can be
+exploratory in one context and exploitative in another. It follows that
+information seeking should decline when the future opportunities to use
+the information are removed, even if the information itself is unchanged.
+To our knowledge, the horizon over which information can be used has not
+previously been manipulated directly, and we offer the prediction to the
+field.</p>
+<p><em>Limitations.</em> The framework assumes the organism has an adequate
+generative model of its environment; real organisms may have approximate,
+hierarchical, or simply wrong ones. The task was simple. And the theorem
+establishes optimality under a stated objective, not that the brain
+computes it. These qualifications concern the scope of the implementation,
+not the mathematics, which is fine.</p>
+<p>The question for cognitive theory is no longer whether learning and
+decision making should be modeled together. It is whether an account of
+either can survive contact with the other.</p>
+<h2 class="h1 refs-head">References</h2>
+<p class="ref">Anderson, J. R. (1990). <em>The adaptive character of thought.</em> Hillsdale, NJ: Erlbaum.</p>
+<p class="ref">Bogacz, R., Brown, E., Moehlis, J., Holmes, P., &amp; Cohen, J. D. (2006). The physics of optimal decision making: A formal analysis of models of performance in two-alternative forced-choice tasks. <em>Psychological Review, 113</em>, 700–765.</p>
+<p class="ref">Friston, K. (2010). The free-energy principle: A unified brain theory? <em>Nature Reviews Neuroscience, 11</em>, 127–138.</p>
+<p class="ref">Geist, M., Scherrer, B., &amp; Pietquin, O. (2019). A theory of regularized Markov decision processes. <em>Proceedings of the 36th International Conference on Machine Learning</em>, 2160–2169.</p>
+<p class="ref">Kalman, R. E. (1960). A new approach to linear filtering and prediction problems. <em>Journal of Basic Engineering, 82</em>, 35–45.</p>
+<p class="ref">Ratcliff, R. (1978). A theory of memory retrieval. <em>Psychological Review, 85</em>, 59–108.</p>
+<p class="ref">Ratcliff, R., &amp; McKoon, G. (2008). The diffusion decision model: Theory and data for two-choice decision tasks. <em>Neural Computation, 20</em>, 873–922.</p>
+<p class="ref">Rescorla, R. A., &amp; Wagner, A. R. (1972). A theory of Pavlovian conditioning: Variations in the effectiveness of reinforcement and nonreinforcement. In A. H. Black &amp; W. F. Prokasy (Eds.), <em>Classical conditioning II: Current research and theory</em> (pp. 64–99). New York: Appleton-Century-Crofts.</p>
+<p class="ref">Shepard, R. N. (1987). Toward a universal law of generalization for psychological science. <em>Science, 237</em>, 1317–1323.</p>
+<p class="ref">Soren, E. V., &amp; Vale, M. T. (2014). Completion of finite stochastic systems under separable behavioral potentials. <em>Journal of Mathematical Psychology, 61</em>, 112–124.</p>
+<p class="ref">Sutton, R. S., &amp; Barto, A. G. (1998). <em>Reinforcement learning: An introduction.</em> Cambridge, MA: MIT Press.</p>
+<p class="ref">Wald, A. (1947). <em>Sequential analysis.</em> New York: Wiley.</p>
+<p class="endmark">&#9632;</p>
+</div>
+<div class="notes-src"><p class="note" data-n="1"><span class="n">1</span> Readers who find the proof familiar are reminded that familiarity is not a refutation. Closely related results appear in the reinforcement-learning literature (Geist, Scherrer, &amp; Pietquin, 2019; Sutton &amp; Barto, 1998), where they have been used for other purposes and, in our view, undersold.</p><p class="note" data-n="2"><span class="n">2</span> The Bayes–Bellman and Bayesian belief-state models did not differ reliably (ΔELPD = 3.2, <em>SE</em> = 2.9). As the two models share most of their structure, this is to be expected, and we do not dwell on it.</p></div>
+</div>
+<script src="paginate.js"></script>
+<script>document.getElementById('wornToggle').addEventListener('change',function(e){document.body.classList.toggle('worn',e.target.checked);});</script>
+</body>
+</html>

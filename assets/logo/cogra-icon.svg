@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="288pt" height="288pt" viewBox="0 0 288 288" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-10-29T15:11:39.526455</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 288 
+L 288 288 
+L 288 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 144 171.1296 
+C 107.136 171.1296 88.704 147.168 90.5472 99.2448 
+C 91.4688 80.8128 79.488 75.2832 70.272 73.44 
+L 70.272 66.0672 
+C 86.8608 65.1456 107.136 71.5968 107.136 99.2448 
+C 106.2144 137.952 121.8816 156.384 144 156.384 
+z
+" clip-path="url(#pd7975228e6)" style="fill: #111111"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 144 171.1296 
+C 180.864 171.1296 199.296 147.168 197.4528 99.2448 
+C 196.5312 80.8128 208.512 75.2832 217.728 73.44 
+L 217.728 66.0672 
+C 201.1392 65.1456 180.864 71.5968 180.864 99.2448 
+C 181.7856 137.952 166.1184 156.384 144 156.384 
+z
+" clip-path="url(#pd7975228e6)" style="fill: #111111"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 138.0096 213.12 
+L 149.9904 213.12 
+L 149.9904 80.8128 
+L 138.0096 80.8128 
+z
+" clip-path="url(#pd7975228e6)" style="fill: #111111"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 144 57.7728 
+C 147.666168 57.7728 151.182672 56.316216 153.775044 53.723844 
+C 156.367416 51.131472 157.824 47.614968 157.824 43.9488 
+C 157.824 40.282632 156.367416 36.766128 153.775044 34.173756 
+C 151.182672 31.581384 147.666168 30.1248 144 30.1248 
+C 140.333832 30.1248 136.817328 31.581384 134.224956 34.173756 
+C 131.632584 36.766128 130.176 40.282632 130.176 43.9488 
+C 130.176 47.614968 131.632584 51.131472 134.224956 53.723844 
+C 136.817328 56.316216 140.333832 57.7728 144 57.7728 
+z
+" clip-path="url(#pd7975228e6)" style="fill: #111111"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 28.8 169.2 
+L 79.6608 169.2 
+L 79.6608 162 
+L 28.8 162 
+z
+" clip-path="url(#pd7975228e6)" style="fill: #111111"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 208.3392 169.2 
+L 259.2 169.2 
+L 259.2 162 
+L 208.3392 162 
+z
+" clip-path="url(#pd7975228e6)" style="fill: #111111"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 28.8 241.2 
+L 259.2 241.2 
+L 259.2 234 
+L 28.8 234 
+z
+" clip-path="url(#pd7975228e6)" style="fill: #111111"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pd7975228e6">
+   <rect x="0" y="0" width="288" height="288"/>
+  </clipPath>
+ </defs>
+</svg>

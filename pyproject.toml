@@ -1,0 +1,79 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cogra"
+version = "0.1.0"
+description = "Cognitive Revolution Aesthetic: the look of mid-century psychology journals for matplotlib figures and papers: period ink-on-paper plotting, restyling of finished figures, archival-scan / photocopy / aged-print wear, and papers set as a 1980 APA journal article (web page and PDF)."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE", "src/cogra/fonts/GUST-FONT-LICENSE.txt"]
+authors = [{ name = "Lynde Wolf Gorneault" }]
+keywords = ["matplotlib", "matplotlib-style", "data visualization", "typography", "psychology"]
+classifiers = [
+    "Framework :: Matplotlib",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Visualization",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "matplotlib>=3.8",
+    "pillow>=10",
+]
+
+[project.optional-dependencies]
+fonts = ["fonttools>=4.40"]
+paper = ["markdown>=3.4", "pyyaml>=6"]
+test = ["pytest>=7", "pytest-cov>=5", "hypothesis>=6.100", "pandas>=2", "seaborn>=0.13", "markdown>=3.4", "pyyaml>=6", "pymupdf>=1.23"]
+docs = ["markdown>=3.4", "pyyaml>=6", "pymupdf>=1.23"]
+dev = ["cogra[test,fonts,paper,docs]", "ruff>=0.6", "mypy>=1.10", "pre-commit>=3"]
+
+[project.urls]
+Homepage = "https://github.com/lynde-wolf/cogra"
+Documentation = "https://lynde-wolf.github.io/cogra/"
+Issues = "https://github.com/lynde-wolf/cogra/issues"
+Changelog = "https://github.com/lynde-wolf/cogra/blob/main/CHANGES.md"
+
+[project.scripts]
+cogra-paper = "cogra.paper.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+cogra = ["py.typed", "styles/*.mplstyle", "fonts/*.otf", "fonts/*.txt", "paper/*.css", "paper/*.js", "paper/*.svg",
+         "paper/mathjax/*.js", "paper/mathjax/LICENSE", "paper/mathjax/README.md", "paper/mathjax/**/*.js"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow: renders full-size figures (deselect with -m 'not slow')"]
+addopts = "--strict-markers"
+
+[tool.coverage.run]
+source = ["cogra"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+extend-exclude = ["src/cogra/paper/mathjax", "examples/paper/*_site", "docs/_site"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "RUF", "BLE", "S110", "PLW1510"]
+ignore = [
+    "E501",    # long lines are left to the formatter
+    "E741",    # short names (l, x, y) follow matplotlib and ggplot2
+    "B905",    # zip() truncation is relied on in places; strict= is added where lengths must match
+    "RUF001", "RUF002", "RUF003",  # typographic dashes and quotes are deliberate in the paper text
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["PLW1510"]   # the R and Chrome subprocess tests inspect returncode themselves
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+files = ["src/cogra"]

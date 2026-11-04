@@ -1,0 +1,249 @@
+/* cogra.css
+   Approximates a 1950s-1960s American experimental psychology journal
+   page. Aesthetic approximation only; not a reconstruction of any
+   journal's house specification.
+   Body face: TeX Gyre Schola (free Century Schoolbook clone, GUST
+   Font License). Put the fonts/ folder beside this file, or the stack
+   falls back to installed Century Schoolbook, then Georgia. */
+
+@font-face { font-family: "TeX Gyre Schola"; src: local("TeX Gyre Schola"), url("fonts/texgyreschola-regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "TeX Gyre Schola"; src: local("TeX Gyre Schola Italic"), url("fonts/texgyreschola-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "TeX Gyre Schola"; src: local("TeX Gyre Schola Bold"), url("fonts/texgyreschola-bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "TeX Gyre Schola"; src: local("TeX Gyre Schola Bold Italic"), url("fonts/texgyreschola-bolditalic.woff2") format("woff2"); font-weight: 700; font-style: italic; font-display: swap; }
+
+:root {
+  --cogra-paper: #FFFFFF;      /* white: tinted "paper" only looks like a tinted screen */
+  --cogra-ink: #141414;        /* black ink */
+  --cogra-ink-soft: #4A4A4A;   /* secondary text, captions */
+  --cogra-rule: #222222;
+  --cogra-desk: #E9E9E9;       /* surround behind the page */
+  --cogra-face: "TeX Gyre Schola", "Century Schoolbook", "New Century Schoolbook", Georgia, serif;
+  --cogra-size: 1.0625rem;
+  --cogra-lead: 1.38;
+  --cogra-measure: 34em;
+  color-scheme: light;
+}
+/* Dark mode: a microfilm-reader negative, which is how many readers
+   actually met these papers in libraries. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --cogra-paper: #161616; --cogra-ink: #E8E8E8; --cogra-ink-soft: #B0B0B0;
+    --cogra-rule: #CFCFCF; --cogra-desk: #0C0C0C; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --cogra-paper: #161616; --cogra-ink: #E8E8E8; --cogra-ink-soft: #B0B0B0;
+  --cogra-rule: #CFCFCF; --cogra-desk: #0C0C0C; color-scheme: dark;
+}
+
+.cogra-page {
+  background: var(--cogra-paper);
+  color: var(--cogra-ink);
+  font-family: var(--cogra-face);
+  font-size: var(--cogra-size);
+  line-height: var(--cogra-lead);
+  font-variant-numeric: lining-nums;
+  max-width: var(--cogra-measure);
+  margin: 0 auto;
+  padding: 2.5em 2.75em 3em;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  font-kerning: normal;
+}
+.cogra-page p { margin: 0; text-indent: 1.5em; }
+.cogra-page p.cogra-noindent,
+.cogra-page h2 + p, .cogra-page h3 + p, .cogra-summary + p { text-indent: 0; }
+
+/* Running head */
+.cogra-runhead {
+  display: flex; justify-content: space-between; gap: 1.5em;
+  font-size: 0.82em; letter-spacing: 0.04em; text-transform: uppercase;
+  text-align: left; hyphens: none; -webkit-hyphens: none;   /* not the page's justified text */
+  margin-bottom: 2.2em;
+}
+.cogra-runhead > :first-child { white-space: nowrap; }
+.cogra-runhead > :last-child { text-align: right; }
+
+/* Title block */
+.cogra-page h1 {
+  font-size: 1.2em; font-weight: 400; text-transform: uppercase;
+  letter-spacing: 0.02em; text-align: center; line-height: 1.3;
+  margin: 0 0 1em; hyphens: none;
+}
+.cogra-author { text-align: center; font-variant: small-caps; font-size: 0.92em; letter-spacing: 0.03em; }
+.cogra-affil  { text-align: center; font-style: italic; font-size: 0.92em; margin-bottom: 1.8em; }
+.cogra-page .cogra-author, .cogra-page .cogra-affil { text-indent: 0; }
+.cogra-page .cogra-affil { margin-bottom: 1.8em; }
+
+.cogra-summary { font-size: 0.88em; margin: 0 2em 1.8em; }
+.cogra-summary p { text-indent: 0; }
+
+/* Headings: centered caps, centered italic, italic run-in */
+.cogra-page h2 {
+  font-size: 1em; font-weight: 400; text-transform: uppercase;
+  letter-spacing: 0.06em; text-align: center; margin: 1.6em 0 0.7em;
+}
+.cogra-page h3 {
+  font-size: 1em; font-weight: 400; font-style: italic;
+  text-align: center; margin: 1.1em 0 0.5em;
+}
+.cogra-runin { font-style: italic; }
+
+/* Footnote markers and notes */
+.cogra-page sup { font-size: 0.7em; line-height: 0; }
+.cogra-notes { font-size: 0.8em; margin-top: 2em; padding-top: 0.4em; position: relative; }
+.cogra-notes::before { content: ""; position: absolute; top: 0; left: 0; width: 4em; border-top: 0.5px solid var(--cogra-rule); }
+.cogra-notes p { text-indent: 1.5em; }
+
+/* Figures */
+.cogra-page figure { margin: 1.8em 0; }
+.cogra-page figure svg { display: block; width: 100%; max-width: 100%; height: auto; }
+.cogra-page figcaption { font-size: 0.86em; margin-top: 0.6em; text-align: justify; }
+.cogra-label { font-variant: small-caps; }
+
+/* Tables: horizontal rules only */
+.cogra-tablewrap { overflow-x: auto; margin: 1.8em 0; }
+.cogra-page table { border-collapse: collapse; margin: 0 auto; font-size: 0.88em; }
+.cogra-page caption { caption-side: top; font-variant: small-caps; margin-bottom: 0.5em; line-height: 1.35; }
+.cogra-page caption .cogra-tabno { display: block; font-variant: normal; text-transform: uppercase; letter-spacing: 0.05em; }
+.cogra-page thead tr { border-top: 0.75px solid var(--cogra-rule); border-bottom: 0.5px solid var(--cogra-rule); }
+.cogra-page tbody tr:last-child { border-bottom: 0.75px solid var(--cogra-rule); }
+.cogra-page th { font-weight: 400; }
+.cogra-page th, .cogra-page td { padding: 0.25em 0.9em; text-align: center; }
+.cogra-page th:first-child, .cogra-page td:first-child { text-align: left; padding-left: 0; }
+
+/* References: small, hanging indent */
+.cogra-refs { font-size: 0.86em; text-align: left; }
+.cogra-refs p { text-indent: -1.5em; padding-left: 1.5em; margin: 0; }
+
+.cogra-folio { text-align: center; font-size: 0.82em; margin-top: 2em; }
+
+@media (max-width: 34rem) {
+  .cogra-page { padding: 1.6em 1.25em 2em; font-size: 1rem; }
+  .cogra-summary { margin: 0 0.75em 1.6em; }
+}
+
+/* Selected text in ink, not the system's highlight colour */
+:is(.cogra-page, .cogra-controls) ::selection { background: var(--cogra-ink); color: var(--cogra-paper); }
+
+/* ---------- Form controls ----------
+   Checkboxes, radio buttons, sliders, menus and buttons drawn in ink, so a
+   page has no system accent colour (blue, on most machines) and the worn
+   filters wear them like the type. Inside .cogra-page, or put .cogra-controls
+   on any element that holds controls. */
+:is(.cogra-page, .cogra-controls) :is(input[type="checkbox"], input[type="radio"]) {
+  appearance: none; -webkit-appearance: none; margin: 0; flex: none;
+  width: 0.95em; height: 0.95em; vertical-align: -0.12em;
+  border: 1.5px solid var(--cogra-ink); background: transparent; cursor: pointer;
+}
+/* a ticked ballot box: an inked cross */
+:is(.cogra-page, .cogra-controls) input[type="checkbox"]:checked {
+  background:
+    linear-gradient(45deg, transparent 41%, var(--cogra-ink) 41% 59%, transparent 59%),
+    linear-gradient(-45deg, transparent 41%, var(--cogra-ink) 41% 59%, transparent 59%);
+}
+:is(.cogra-page, .cogra-controls) input[type="radio"] { border-radius: 50%; }
+:is(.cogra-page, .cogra-controls) input[type="radio"]:checked {
+  background: radial-gradient(circle, var(--cogra-ink) 0 42%, transparent 46%);
+}
+/* a slider: a rule with a block cursor, as on a slide rule */
+:is(.cogra-page, .cogra-controls) input[type="range"] {
+  appearance: none; -webkit-appearance: none; background: transparent; margin: 0; height: 1.1em; cursor: pointer;
+}
+:is(.cogra-page, .cogra-controls) input[type="range"]::-webkit-slider-runnable-track { height: 1.5px; background: var(--cogra-ink); }
+:is(.cogra-page, .cogra-controls) input[type="range"]::-moz-range-track { height: 1.5px; background: var(--cogra-ink); }
+:is(.cogra-page, .cogra-controls) input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 0.42em; height: 1em; margin-top: calc(-0.5em + 0.75px);
+  background: var(--cogra-ink); border: 0; border-radius: 0;
+}
+:is(.cogra-page, .cogra-controls) input[type="range"]::-moz-range-thumb {
+  width: 0.42em; height: 1em; background: var(--cogra-ink); border: 0; border-radius: 0;
+}
+:is(.cogra-page, .cogra-controls) :is(select, button, input[type="button"], input[type="submit"]) {
+  font: inherit; color: var(--cogra-ink); background-color: transparent;
+  border: 1.5px solid var(--cogra-ink); border-radius: 0; padding: 0.05em 0.5em; cursor: pointer;
+}
+:is(.cogra-page, .cogra-controls) select {
+  appearance: none; -webkit-appearance: none; padding-right: 1.5em;
+  background-image: linear-gradient(45deg, transparent 50%, var(--cogra-ink) 50%),
+                    linear-gradient(-45deg, transparent 50%, var(--cogra-ink) 50%);
+  background-size: 0.3em 0.3em; background-repeat: no-repeat;
+  background-position: right 0.65em center, right 0.35em center;
+}
+:is(.cogra-page, .cogra-controls) :is(button, input[type="button"], input[type="submit"]):hover {
+  background-color: var(--cogra-ink); color: var(--cogra-paper);
+}
+:is(.cogra-page, .cogra-controls) :is(input, select, button):focus-visible {
+  outline: 2px solid var(--cogra-ink); outline-offset: 2px;
+}
+
+/* ---------- Worn printing (pair with cogra-filters.html) ----------
+   Ink effects come from an inline SVG filter, #cogra-letterpress, which must
+   be pasted into the same HTML document: browsers other than Firefox do not
+   apply filters referenced from an external SVG file to HTML content.
+   Wrap the text (not the page background) in .cogra-ink. */
+
+/* Default worn look: 1-bit archival scan. Pure white, pure black,
+   hard thresholded edges, some letters heavier than others. */
+.cogra-worn {
+  --cogra-paper: #FFFFFF; --cogra-ink: #000000; --cogra-ink-soft: #3A3A3A; --cogra-rule: #000;
+  background: var(--cogra-paper);
+}
+.cogra-worn .cogra-ink { filter: url(#cogra-scan); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .cogra-worn {
+    --cogra-paper: #111111; --cogra-ink: #F2F2F2; --cogra-ink-soft: #BBBBBB; --cogra-rule: #EEE;
+  }
+}
+:root[data-theme="dark"] .cogra-worn {
+  --cogra-paper: #111111; --cogra-ink: #F2F2F2; --cogra-ink-soft: #BBBBBB; --cogra-rule: #EEE;
+}
+
+/* Dust specks on a worn page (scan or photocopy), drawn by cogra.wear's
+   speck routine: keep cogra-specks-a.png and cogra-specks-b.png beside this
+   file. Two tiles of different sizes, so the pattern does not visibly
+   repeat. Add .cogra-nospecks to leave them off; clean pages have none. */
+.cogra-worn { position: relative; }
+.cogra-worn:not(.cogra-nospecks)::after {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background-image: url("cogra-specks-a.png"), url("cogra-specks-b.png");
+  background-size: 1100px 1100px, 1530px 1530px;
+  background-position: 0 0, 317px 589px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .cogra-worn::after { filter: invert(1); }
+}
+:root[data-theme="dark"] .cogra-worn::after { filter: invert(1); }
+
+/* Alternative: add .cogra-photocopy for a noisier photocopy. */
+/* Paper: photocopy stock. Neutral white, faint gray mottling, toner fog,
+   a soft copier shadow along the binding edge. No yellowing. */
+.cogra-worn.cogra-photocopy {
+  --cogra-paper: #F3F3F1; --cogra-ink: #161616; --cogra-ink-soft: #4B4B4B; --cogra-rule: #222;
+  background-color: var(--cogra-paper);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0.3 0 0 0 0 0.3 0 0 0 0 0.3 0 0 0 -1.2 0.62'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='1200'%3E%3Cfilter id='t'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.003 0.005' numOctaves='2' seed='11'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.35 0 0 0 0 0.35 0 0 0 -0.8 0.45'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23t)'/%3E%3C/svg%3E"),
+    linear-gradient(90deg, transparent 0 63%, rgba(0,0,0,.05) 63.2%, transparent 63.5%),
+    linear-gradient(90deg, rgba(0,0,0,.28), rgba(0,0,0,.08) 2.2%, transparent 5%);
+  background-size: 240px 240px, cover, 100% 100%, 100% 100%;
+  background-blend-mode: multiply;
+}
+.cogra-worn.cogra-photocopy .cogra-ink { filter: url(#cogra-letterpress) contrast(1.15); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .cogra-worn.cogra-photocopy {
+    --cogra-paper: #1A1A1A; --cogra-ink: #E9E9E6; --cogra-ink-soft: #B5B5B2; --cogra-rule: #DDD;
+    background-blend-mode: soft-light;
+  }
+}
+:root[data-theme="dark"] .cogra-worn.cogra-photocopy {
+  --cogra-paper: #1A1A1A; --cogra-ink: #E9E9E6; --cogra-ink-soft: #B5B5B2; --cogra-rule: #DDD;
+  background-blend-mode: soft-light;
+}
+
+/* People who ask the system for more contrast get clean type */
+@media (prefers-contrast: more) {
+  .cogra-worn .cogra-ink, .cogra-worn.cogra-photocopy .cogra-ink { filter: none; }
+  .cogra-worn::after { display: none; }
+}

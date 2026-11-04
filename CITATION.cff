@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: >-
+  cogra is an aesthetic, not a research instrument, so there is no need to
+  cite it. But if for whatever reason you would like to (a figure that
+  looks like 1981 does tend to raise questions), this is how.
+title: "Cognitive Revolution Aesthetic (cogra)"
+abstract: >-
+  The look of experimental psychology journals from the cognitive revolution
+  for figures and papers: a matplotlib style and ggplot2-style geoms in
+  black ink, archival-scan wear, papers set as a 1980 journal article,
+  and extras for R, LaTeX and the web.
+type: software
+authors:
+  - given-names: Lynde
+    family-names: Wolf Gorneault
+    orcid: "https://orcid.org/0000-0003-4484-5120"
+version: 0.1.0
+license: MIT
+repository-code: "https://github.com/lynde-wolf/cogra"
+keywords:
+  - matplotlib
+  - data visualization
+  - typography
+  - psychology
+  - cognitive revolution

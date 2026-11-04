@@ -1,0 +1,197 @@
+/* apa1980.css: the default cogra paper layout, an APA journal page of
+   about 1980 (measured from Mayer, 1980, J. Educ. Psychol. 72, 770-784, at
+   the size of its PDF: 531 x 726 pt).
+
+   Two justified columns of TeX Gyre Schola; on the first page a masthead,
+   the title block and an abstract across the measure, and the author note at
+   the foot of the first column; running heads in capitals with the folio at
+   the outer edge; Method, notes and references in small type; figures and
+   tables across the page at the top.
+
+   Every dimension is a custom property on :root, so a paper can move away
+   from this baseline with Paper(style={"body": "10pt", ...}) or its own CSS.
+   paginate.js pours #source into .sheet pages; on narrow screens #source is
+   shown as one column instead. */
+
+@font-face { font-family: "TeX Gyre Schola"; src: local("TeX Gyre Schola"), url("fonts/texgyreschola-regular.otf") format("opentype"); font-weight: 400; font-style: normal; }
+@font-face { font-family: "TeX Gyre Schola"; src: local("TeX Gyre Schola Italic"), url("fonts/texgyreschola-italic.otf") format("opentype"); font-weight: 400; font-style: italic; }
+@font-face { font-family: "TeX Gyre Schola"; src: local("TeX Gyre Schola Bold"), url("fonts/texgyreschola-bold.otf") format("opentype"); font-weight: 700; font-style: normal; }
+@font-face { font-family: "TeX Gyre Schola"; src: local("TeX Gyre Schola Bold Italic"), url("fonts/texgyreschola-bolditalic.otf") format("opentype"); font-weight: 700; font-style: italic; }
+
+:root {
+  --paper: #ffffff;
+  --ink: #111111;
+  --desk: #c9c9c6;
+  --face: "TeX Gyre Schola", "Century Schoolbook", "New Century Schoolbook", Georgia, serif;
+  /* page geometry */
+  --page-w: 531pt;  --page-h: 726pt;
+  --margin-l: 62pt; --margin-r: 76pt;
+  --body-top: 66pt; --margin-b: 84pt;      /* text block: top edge and space below it */
+  --rh-top: 47pt;                          /* running head */
+  --foot-top: calc(var(--page-h) - 71pt);  /* first-page foot line */
+  --gutter: 11pt;
+  --text-w: calc(var(--page-w) - var(--margin-l) - var(--margin-r));
+  --abstract-w: calc(var(--text-w) * 0.79);
+  /* type */
+  --body: 9.2pt;  --lead: 11pt;  --indent: 10pt;
+  --small: 8.1pt; --small-lead: 9.1pt;
+  --ref: 7.6pt;   --ref-lead: 9pt;
+  --title: 13.6pt; --title-lead: 14.5pt;
+  --author: 10.4pt; --affil: 8.6pt;
+  --abstract: 8.7pt; --abstract-lead: 10pt;
+  --head1: 9.8pt;
+  --rh: 8.1pt; --masthead: 5.9pt;
+  color-scheme: light;
+}
+
+html, body { margin: 0; background: var(--desk); }
+body { font-family: var(--face); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+/* ---------- controls and notes outside the pages ---------- */
+.outside { max-width: 44rem; margin: 1.2rem auto 0.8rem; padding: 0 1rem; font-family: var(--face);
+           font-size: 0.85rem; line-height: 1.4; color: #3d3d3b; }
+.outside p { margin: 0 0 0.4rem; }
+.outside label { display: inline-flex; gap: 0.45rem; align-items: center; cursor: pointer; }
+/* the switch in ink, not the system accent colour: a ballot box with a
+   cross, worn with the pages */
+.outside input[type="checkbox"] { appearance: none; -webkit-appearance: none; margin: 0; width: 0.95em; height: 0.95em;
+  border: 1.5px solid var(--ink); background: transparent; cursor: pointer; }
+.outside input[type="checkbox"]:checked {
+  background: linear-gradient(45deg, transparent 41%, var(--ink) 41% 59%, transparent 59%),
+              linear-gradient(-45deg, transparent 41%, var(--ink) 41% 59%, transparent 59%); }
+.outside input[type="checkbox"]:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.worn .outside label { filter: url(#cogra-scan); }
+/* selected text in ink, not the system's highlight colour */
+::selection { background: var(--ink); color: var(--paper); }
+
+/* ---------- the page ---------- */
+#book { display: flex; flex-direction: column; align-items: center; gap: 18pt; padding: 6pt 0 36pt; }
+.sheet { position: relative; width: var(--page-w); height: var(--page-h); background: var(--paper);
+         box-shadow: 0 1px 5px rgba(0,0,0,.22); overflow: hidden; flex: none;
+         font-size: var(--body); line-height: var(--lead); }
+.sheet .rh { position: absolute; top: var(--rh-top); left: var(--margin-l); width: var(--text-w);
+             font-size: var(--rh); line-height: 10pt; text-align: center; letter-spacing: 0.02em;
+             text-transform: uppercase; }
+.sheet .rh .folio { position: absolute; top: 0; font-size: 9pt; letter-spacing: 0; }
+.sheet.recto .rh .folio { right: 0; }
+.sheet.verso .rh .folio { left: 0; }
+.sheet .body { position: absolute; top: var(--body-top); left: var(--margin-l); width: var(--text-w);
+               height: calc(var(--page-h) - var(--body-top) - var(--margin-b));
+               display: flex; flex-direction: column; }
+.sheet .floats { flex: none; }
+.sheet .cols { flex: 1 1 auto; min-height: 0; display: flex; gap: var(--gutter); }
+.sheet .col { flex: 1 1 0; min-width: 0; height: 100%; display: flex; flex-direction: column; overflow: hidden; }
+.sheet .flow { flex: none; }
+.sheet .feet { margin-top: auto; flex: none; }
+.sheet .feet:not(:empty)::before { content: ""; display: block; width: 72pt; border-top: 0.5pt solid var(--ink);
+                                   margin: 6pt 0 4pt; }
+.sheet .first-foot { position: absolute; left: var(--margin-l); width: var(--text-w); top: var(--foot-top);
+                     text-align: center; font-size: 6pt; line-height: 7pt; }
+.sheet .first-foot .folio { display: block; margin-top: 10pt; font-size: 7.4pt; }
+
+/* ---------- front matter (first page) ---------- */
+.masthead { font-size: var(--masthead); line-height: 1.08; margin: -16pt 0 14pt; text-align: left; }
+.title { font-size: var(--title); line-height: var(--title-lead); font-weight: 400; text-align: center;
+         margin: 0 2pt 10pt; hyphens: none; text-wrap: balance; }
+.authors { font-size: var(--author); line-height: 1.15; text-align: center; margin: 0; hyphens: none; }
+.authors sup, .affil sup { font-size: 0.6em; line-height: 0; }
+.affil { font-size: var(--affil); line-height: 1.16; text-align: center; margin: 1pt 0 0; }
+.abstract { width: var(--abstract-w); margin: 13pt auto 0; font-size: var(--abstract);
+            line-height: var(--abstract-lead); text-align: justify; hyphens: auto; }
+.abstract p { margin: 0; text-indent: 0; }
+.abstract p + p { text-indent: var(--indent); }
+.abstract .kw { margin-top: 4pt; text-indent: 0; }
+.front { padding-bottom: 19pt; }
+
+/* ---------- running text ---------- */
+.flow > *, #source .flowsrc > * { margin: 0; }
+p { text-align: justify; hyphens: auto; -webkit-hyphens: auto; text-indent: var(--indent); }
+p.cont { text-indent: 0; }
+p.split { text-align-last: justify; }
+.h1 { font-size: var(--head1); line-height: var(--lead); text-align: center; font-weight: 400;
+      margin: var(--lead) 0 calc(var(--lead) * 0.5) !important; hyphens: none; }
+.h2 { font-size: var(--body); line-height: var(--lead); font-style: italic; font-weight: 400;
+      text-align: left; margin: calc(var(--lead) * 0.7) 0 calc(var(--lead) * 0.25) !important; hyphens: none; }
+.flow > .h1:first-child, .flow > .h2:first-child { margin-top: 0 !important; }
+.runin { font-style: italic; }
+.small, p.small { font-size: var(--small); line-height: var(--small-lead); }
+p.li { text-indent: 0; padding-left: var(--indent); position: relative; }
+p.li:not(.cont)::before { content: attr(data-mark); position: absolute; left: 0; }
+sup { font-size: 0.65em; line-height: 0; vertical-align: 0.55em; }
+a { color: inherit; text-decoration: none; }
+.sc { font-variant: small-caps; }
+.url { word-break: break-all; hyphens: none; }
+a[href^="http"] { word-break: break-all; }
+.quote { padding: 0 var(--indent); text-indent: 0; }
+.rule { height: 0; border-top: 0.5pt solid var(--ink); width: 72pt; margin: var(--lead) 0 calc(var(--lead) * 0.5) !important; }
+.display { text-indent: 0; text-align: center; margin: calc(var(--lead) * 0.5) 0 !important; }
+/* MathJax SVG: the .display paragraph gives the spacing */
+.display mjx-container[display="true"] { margin: 0 !important; }
+
+/* footnotes and author note */
+.note { font-size: var(--small); line-height: var(--small-lead); text-indent: var(--indent); text-align: justify;
+        hyphens: auto; margin: 0; }
+.note .n { font-size: 0.7em; vertical-align: 0.5em; line-height: 0; }
+
+/* references */
+.refs-head { margin-top: var(--lead) !important; }
+.ref { font-size: var(--ref); line-height: var(--ref-lead); text-indent: -8pt; padding-left: 8pt;
+       text-align: left; hyphens: manual; overflow-wrap: anywhere; }
+.ref.cont { text-indent: 0; }
+.endmark { text-align: right; text-indent: 0; font-size: var(--ref); }
+
+/* figures and tables: across the page at the top of a page */
+figure { margin: 0 0 14pt; }
+figure img { display: block; margin: 0 auto 6pt; max-width: 100%; height: auto; }
+figcaption, .capcont { font-size: var(--small); line-height: var(--small-lead); text-align: justify; hyphens: auto; }
+figcaption { text-indent: 0; }
+figcaption .lab { font-style: italic; }
+figure.table figcaption { margin-bottom: 4pt; text-align: left; }
+figure.table figcaption .lab { font-style: normal; display: block; }
+figure.table figcaption .tt { font-style: italic; }
+figure table { width: 100%; border-collapse: collapse; font-size: var(--small); line-height: var(--small-lead); }
+figure table thead tr { border-top: 0.6pt solid var(--ink); border-bottom: 0.4pt solid var(--ink); }
+figure table tbody tr:last-child { border-bottom: 0.6pt solid var(--ink); }
+figure table th { font-weight: 400; }
+figure table th, figure table td { padding: 2pt 5pt; text-align: center; }
+figure table th:first-child, figure table td:first-child { text-align: left; padding-left: 0; }
+.fig-scan { display: none; }
+.worn .fig-clean { display: none; }
+.worn .fig-scan { display: block; }
+
+/* worn printing: the scan filter goes on text, never on the figure images */
+.worn .sheet .rh, .worn .sheet .front, .worn .sheet .flow, .worn .sheet .feet,
+.worn .sheet .first-foot, .worn .sheet figcaption, .worn .sheet figure table { filter: url(#cogra-scan); }
+@media (prefers-contrast: more) {
+  .worn .sheet .rh, .worn .sheet .front, .worn .sheet .flow, .worn .sheet .feet,
+  .worn .sheet .first-foot, .worn .sheet figcaption, .worn .sheet figure table { filter: none; }
+}
+
+/* ---------- single-column fallback (narrow screens, no pagination) ---------- */
+#source { display: none; }
+.unpaged #source { display: block; max-width: 34rem; margin: 0 auto 2rem; padding: 1.4rem 1.1rem 2rem;
+                   background: var(--paper); font-size: 1rem; line-height: 1.38; }
+.unpaged #source .h1 { font-size: 1.05rem; margin: 1.3em 0 0.5em !important; }
+.unpaged #source .h2 { margin: 1em 0 0.3em !important; }
+.unpaged #source figure { margin: 1.2em 0; }
+.unpaged #source .note, .unpaged #source .small, .unpaged #source .capcont,
+.unpaged #source figcaption, .unpaged #source figure table { font-size: 0.86rem; line-height: 1.32; }
+.unpaged #source .ref { font-size: 0.82rem; line-height: 1.3; }
+.unpaged #source .notes-src:not(:empty), .unpaged #source .authornote-src:not(:empty) {
+  margin-top: 1.5em; border-top: 0.5pt solid var(--ink); padding-top: 0.5em; }
+.unpaged #source .firstfoot-src { font-size: 0.75rem; margin-top: 1em; }
+.unpaged #book { display: none; }
+.unpaged .front-src { margin-bottom: 1.5em; }
+.unpaged .masthead { margin: 0 0 1.2em; font-size: 0.7rem; line-height: 1.25; }
+.unpaged .title { font-size: 1.4rem; line-height: 1.25; }
+.unpaged .authors { font-size: 1rem; line-height: 1.35; }
+.unpaged .affil { font-size: 0.85rem; line-height: 1.3; }
+.unpaged .abstract { width: auto; margin: 1em 1em 0; font-size: 0.9rem; line-height: 1.35; }
+
+@media print {
+  html, body { background: white; }
+  .outside { display: none; }
+  #book { padding: 0; gap: 0; zoom: 1 !important; }
+  .sheet { box-shadow: none; break-after: page; }
+  .sheet:last-child { break-after: auto; }
+}

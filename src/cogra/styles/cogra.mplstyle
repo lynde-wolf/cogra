@@ -1,0 +1,53 @@
+# cogra: black ink, no grid, inward ticks, open/filled markers, hatched bars.
+# import cogra registers the fonts and these styles; then plt.style.use("cogra").
+# Stack with cogra-serif, cogra-column or cogra-page.
+font.family:        sans-serif
+font.sans-serif:    TeX Gyre Heros, Helvetica, Arial, DejaVu Sans
+font.serif:         TeX Gyre Schola, Century Schoolbook, DejaVu Serif
+font.size:          10
+mathtext.fontset:   custom
+mathtext.it:        TeX Gyre Heros:italic
+mathtext.rm:        TeX Gyre Heros
+mathtext.cal:       TeX Gyre Heros:italic   # the default, cursive, warns where Apple Chancery is installed
+
+axes.prop_cycle:    cycler(color=['k','k','k','k']) + cycler(marker=['o','o','s','^']) + cycler(markerfacecolor=['white','k','white','k']) + cycler(linestyle=['-','-','--','--'])
+axes.edgecolor:     black
+axes.labelcolor:    black
+axes.linewidth:     0.9
+axes.spines.top:    False
+axes.spines.right:  False
+axes.grid:          False
+axes.facecolor:     white
+axes.labelpad:      6
+
+lines.linewidth:    1.1
+lines.markersize:   5.5
+lines.markeredgewidth: 1.0
+lines.markeredgecolor: black
+
+xtick.direction:    in
+ytick.direction:    in
+xtick.major.size:   4
+ytick.major.size:   4
+xtick.major.width:  0.8
+ytick.major.width:  0.8
+xtick.color:        black
+ytick.color:        black
+xtick.minor.visible: False
+ytick.minor.visible: False
+
+hatch.color:        black
+hatch.linewidth:    0.8
+patch.edgecolor:    black
+patch.force_edgecolor: True
+patch.facecolor:    white
+
+legend.frameon:     False
+legend.handlelength: 2.2
+errorbar.capsize:   3
+
+figure.facecolor:   white
+savefig.facecolor:  white
+savefig.dpi:        300
+savefig.bbox:       tight
+pdf.fonttype:       42

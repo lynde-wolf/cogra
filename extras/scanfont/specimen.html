@@ -1,0 +1,45 @@
+<!doctype html><meta charset="utf-8"><title>Scan font specimen</title>
+<style>
+@font-face{font-family:"Schola Scan";src:url("fonts/ScholaScan-Regular.ttf");font-weight:400;font-style:normal}
+@font-face{font-family:"Schola Scan";src:url("fonts/ScholaScan-Italic.ttf");font-weight:400;font-style:italic}
+@font-face{font-family:"Schola Scan";src:url("fonts/ScholaScan-Bold.ttf");font-weight:700;font-style:normal}
+@font-face{font-family:"Schola Scan";src:url("fonts/ScholaScan-BoldItalic.ttf");font-weight:700;font-style:italic}
+@font-face{font-family:"Heros Scan";src:url("fonts/HerosScan-Regular.ttf");font-weight:400;font-style:normal}
+@font-face{font-family:"Heros Scan";src:url("fonts/HerosScan-Italic.ttf");font-weight:400;font-style:italic}
+@font-face{font-family:"Heros Scan";src:url("fonts/HerosScan-Bold.ttf");font-weight:700;font-style:normal}
+@font-face{font-family:"Heros Scan";src:url("fonts/HerosScan-BoldItalic.ttf");font-weight:700;font-style:italic}
+@font-face{font-family:"Schola Scan Soft";src:url("fonts/ScholaScanSoft-Regular.ttf");font-weight:400;font-style:normal}
+@font-face{font-family:"Schola Scan Soft";src:url("fonts/ScholaScanSoft-Italic.ttf");font-weight:400;font-style:italic}
+@font-face{font-family:"Schola Scan Soft";src:url("fonts/ScholaScanSoft-Bold.ttf");font-weight:700;font-style:normal}
+@font-face{font-family:"Schola Scan Soft";src:url("fonts/ScholaScanSoft-BoldItalic.ttf");font-weight:700;font-style:italic}
+@font-face{font-family:"Heros Scan Soft";src:url("fonts/HerosScanSoft-Regular.ttf");font-weight:400;font-style:normal}
+@font-face{font-family:"Heros Scan Soft";src:url("fonts/HerosScanSoft-Italic.ttf");font-weight:400;font-style:italic}
+@font-face{font-family:"Heros Scan Soft";src:url("fonts/HerosScanSoft-Bold.ttf");font-weight:700;font-style:normal}
+@font-face{font-family:"Heros Scan Soft";src:url("fonts/HerosScanSoft-BoldItalic.ttf");font-weight:700;font-style:italic}
+body{background:#fff;color:#000;margin:24px}
+body.paper{background:#EFE8D6;color:#1C1A17}
+input[type=checkbox]{appearance:none;-webkit-appearance:none;margin:0 .3em 0 0;width:.95em;height:.95em;vertical-align:-.12em;border:1.5px solid currentColor;background:transparent;cursor:pointer}
+input[type=checkbox]:checked{background:linear-gradient(45deg,transparent 41%,currentColor 41% 59%,transparent 59%),linear-gradient(-45deg,transparent 41%,currentColor 41% 59%,transparent 59%)}
+input[type=checkbox]:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+label{font:14px system-ui;margin-right:1.5em}
+p{margin:.2em 0}
+section{margin-bottom:2em}
+.serif{font-family:"Schola Scan"} .sans{font-family:"Heros Scan"}
+.soft .serif{font-family:"Schola Scan Soft"} .soft .sans{font-family:"Heros Scan Soft"}
+</style>
+<p><label><input type="checkbox" onchange="document.body.classList.toggle('soft', this.checked)"> Soft</label>
+<label><input type="checkbox" onchange="document.body.classList.toggle('paper', this.checked)"> Paper background</label></p>
+<section class="serif">
+<p style="font-size:72px">Stop-Signal Task</p>
+<p style="font-size:40px"><b>Working Memory</b> &amp; <i>Response Inhibition</i></p>
+<p style="font-size:28px"><b><i>Experiment 2.</i></b> The quick brown fox jumps over the lazy dog. 0123456789 (msec)</p>
+<p style="font-size:18px">Subjects were instructed to respond as quickly as possible to the go stimulus, and to <i>withhold</i> their response whenever the auditory stop signal was presented. Mean SSRT was <b>212 msec</b>.</p>
+<p style="font-size:13px">Subjects were instructed to respond as quickly as possible to the go stimulus, and to withhold their response whenever the auditory stop signal was presented. Mean SSRT was 212 msec.</p>
+</section>
+<section class="sans">
+<p style="font-size:72px"><b>A</b> SSRT (msec)</p>
+<p style="font-size:40px">Size of positive set, <i>s</i> &nbsp; <b>Feature</b> <b><i>Conjunction</i></b></p>
+<p style="font-size:28px">Mean RT (msec) 350 400 450 500 550 600 650 &nbsp; Positive &nbsp; Negative</p>
+<p style="font-size:18px">Subjects were instructed to respond as quickly as possible to the go stimulus, and to <i>withhold</i> their response whenever the auditory stop signal was presented. Mean SSRT was <b>212 msec</b>.</p>
+<p style="font-size:13px">Illustrative values only. The quick brown fox jumps over the lazy dog. 0123456789</p>
+</section>

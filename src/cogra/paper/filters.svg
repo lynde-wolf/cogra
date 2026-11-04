@@ -1,0 +1,36 @@
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="cogra-letterpress" x="-1%" y="-1%" width="102%" height="102%" color-interpolation-filters="sRGB">
+    <!-- 1. Wobble: edges are not machine-straight -->
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="wobNoise"/>
+    <feDisplacementMap id="mcWobble" in="SourceGraphic" in2="wobNoise" scale="1.3" xChannelSelector="R" yChannelSelector="G" result="wobbled"/>
+    <!-- 2. Ink spread with a noisy threshold: fatter, ragged strokes -->
+    <feGaussianBlur id="mcSpread" in="wobbled" stdDeviation="0.5" result="spread"/>
+    <feTurbulence type="fractalNoise" baseFrequency="1.7" numOctaves="1" seed="8" result="edgeNoise"/>
+    <feColorMatrix in="edgeNoise" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1 0 0 0 0" result="edgeA"/>
+    <feComposite id="mcRough" in="spread" in2="edgeA" operator="arithmetic" k1="0" k2="1" k3="-0.32" k4="0.12" result="noisy"/>
+    <feComponentTransfer in="noisy" result="inked">
+      <feFuncA type="linear" slope="5" intercept="-1.1"/>
+    </feComponentTransfer>
+    <!-- 3. Uneven, faded inking: broad patches plus fine mottle -->
+    <feTurbulence type="fractalNoise" baseFrequency="0.011 0.02" numOctaves="2" seed="21" result="patch"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="1" seed="5" result="mottle"/>
+    <feComposite in="patch" in2="mottle" operator="arithmetic" k2="0.75" k3="0.35" result="dens"/>
+    <feColorMatrix in="dens" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1.6 0 0 0 -0.15" result="densA"/>
+    <feComponentTransfer in="densA" result="density">
+      <feFuncA id="mcFade" type="table" tableValues="0.45 0.75 0.92 1 1"/>
+    </feComponentTransfer>
+    <feComposite in="inked" in2="density" operator="in"/>
+  </filter>
+  <filter id="cogra-scan" x="-1%" y="-1%" width="102%" height="102%" color-interpolation-filters="sRGB">
+    <!-- 1-bit scan: slight wobble, fill-in, letter-scale weight variation, hard threshold -->
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="sWob"/>
+    <feDisplacementMap id="mcScanWobble" in="SourceGraphic" in2="sWob" scale="0.8" xChannelSelector="R" yChannelSelector="G" result="sWobbled"/>
+    <feGaussianBlur id="mcScanSpread" in="sWobbled" stdDeviation="0.45" result="sSpread"/>
+    <feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="1" seed="12" result="sWeight"/>
+    <feColorMatrix in="sWeight" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1 0 0 0 0" result="sWeightA"/>
+    <feComposite id="mcScanWeight" in="sSpread" in2="sWeightA" operator="arithmetic" k2="1" k3="0.28" k4="-0.17" result="sShifted"/>
+    <feComponentTransfer in="sShifted">
+      <feFuncA type="discrete" tableValues="0 0 1 1 1 1"/>
+    </feComponentTransfer>
+  </filter>
+</svg>

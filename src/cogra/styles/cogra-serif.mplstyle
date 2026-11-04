@@ -1,0 +1,6 @@
+# cogra-serif: labels in TeX Gyre Schola, the face of the 1980 page text.
+# Use on top of cogra:  plt.style.use(["cogra", "cogra-serif"])
+font.family:        serif
+mathtext.it:        TeX Gyre Schola:italic
+mathtext.rm:        TeX Gyre Schola
+mathtext.cal:       TeX Gyre Schola:italic

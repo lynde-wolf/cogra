@@ -1,0 +1,236 @@
+/* The cogra documentation site. The Schola face, the ink and paper colours
+   (white in light mode, a microfilm negative in dark mode) and the
+   journal-page classes come from extras/web/cogra.css, copied beside this
+   file at build. This file is the site's own layout: a top bar, a sidebar of
+   links on the left, and a content column, in the manner of most Python
+   package documentation. */
+   /* to readers here, I don't love writing CSS unless I need to so this is very much AI code */
+
+* { box-sizing: border-box; }
+:root {
+  --site-line: #D9D9D9;        /* hairlines between regions */
+  --site-shade: #F5F5F5;       /* code blocks, boxes */
+  --site-bar: 3.6rem;          /* height of the top bar */
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --site-line: #333333; --site-shade: #1F1F1F; }
+}
+:root[data-theme="dark"] { --site-line: #333333; --site-shade: #1F1F1F; }
+
+html { background: var(--cogra-paper); scroll-padding-top: calc(var(--site-bar) + 0.8rem); }
+body {
+  margin: 0;
+  background: var(--cogra-paper);
+  color: var(--cogra-ink);
+  font-family: var(--cogra-face);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  font-variant-numeric: lining-nums;
+}
+a { color: inherit; text-decoration-thickness: 0.5px; text-underline-offset: 0.16em; }
+a:hover { text-decoration-thickness: 1.5px; }
+img { max-width: 100%; height: auto; }
+h1, h2, h3, h4 { font-weight: 400; line-height: 1.25; }
+h1 { font-size: 2.1rem; margin: 0.2em 0 0.5em; }
+h2 { font-size: 1.45rem; margin: 1.8em 0 0.5em; padding-bottom: 0.2em; border-bottom: 0.5px solid var(--site-line); }
+h3 { font-size: 1.15rem; font-style: italic; margin: 1.4em 0 0.4em; }
+h4 { font-size: 1rem; font-variant: small-caps; letter-spacing: 0.04em; margin: 1.2em 0 0.3em; }
+p { margin: 0 0 0.8em; }
+ul, ol { margin: 0.3em 0 0.9em; padding-left: 1.4em; }
+li { margin: 0.15em 0; }
+.lede { font-size: 1.12rem; }
+
+/* ---------- top bar ---------- */
+.site-head {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--cogra-paper);
+  border-bottom: 0.5px solid var(--site-line);
+}
+.site-head-inner {
+  max-width: 90rem; margin: 0 auto; padding: 0 1.5rem; min-height: var(--site-bar);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 2rem;
+}
+.site-title { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; font-size: 1.6rem; }
+.site-title img { width: 2.3rem; height: 2.3rem; }
+.site-nav { display: flex; flex-wrap: wrap; gap: 0.2rem 1.4rem; font-size: 1.02rem; }
+.site-nav a { text-decoration: none; padding: 0.2rem 0; color: var(--cogra-ink-soft); }
+.site-nav a:hover { color: var(--cogra-ink); }
+.site-nav a[aria-current="page"] { color: var(--cogra-ink); border-bottom: 1.5px solid var(--cogra-ink); }
+.site-tools { margin-left: auto; display: flex; align-items: center; gap: 1rem; font-size: 0.92rem; }
+.site-tools a { text-decoration: none; color: var(--cogra-ink-soft); }
+/* the switches are cogra.css's ink controls (.cogra-controls) */
+.theme-toggle { font-size: 0.88rem; padding: 0.05rem 0.55rem; }
+.controls label { display: inline-flex; align-items: center; gap: 0.4rem; }
+
+/* ---------- sidebar and content ---------- */
+.layout {
+  max-width: 90rem; margin: 0 auto; padding: 0 1.5rem;
+  display: grid; grid-template-columns: 15.5rem minmax(0, 1fr); gap: 3rem;
+}
+.sidebar { position: sticky; top: var(--site-bar); align-self: start; max-height: calc(100vh - var(--site-bar)); overflow-y: auto; padding: 1.6rem 0 2rem; font-size: 0.92rem; }
+.sidebar summary { font-variant: small-caps; letter-spacing: 0.05em; color: var(--cogra-ink-soft); cursor: pointer; margin-bottom: 0.4rem; list-style: none; }
+.sidebar summary::-webkit-details-marker { display: none; }
+.sidebar ul { list-style: none; margin: 0; padding: 0; }
+.sidebar li { margin: 0; }
+.sidebar a { display: block; padding: 0.18rem 0 0.18rem 0.7rem; text-decoration: none; color: var(--cogra-ink-soft); border-left: 1px solid var(--site-line); line-height: 1.35; }
+.sidebar a:hover { color: var(--cogra-ink); border-left-color: var(--cogra-ink); }
+.sidebar a.active { color: var(--cogra-ink); border-left: 2px solid var(--cogra-ink); padding-left: calc(0.7rem - 1px); }
+.sidebar li.sub a { padding-left: 1.5rem; font-size: 0.95em; }
+.sidebar li.sub a.active { padding-left: calc(1.5rem - 1px); }
+.sidebar li.head { margin-top: 0.7rem; }
+.sidebar li.head a { color: var(--cogra-ink); }
+.content { min-width: 0; padding: 1.6rem 0 3rem; max-width: 50rem; }
+.content.wide { max-width: none; }
+.home { max-width: 90rem; margin: 0 auto; padding: 1.2rem 1.5rem 3rem; }
+
+/* ---------- code and tables ---------- */
+code, pre { font-family: "Courier Prime", "Courier New", Courier, ui-monospace, monospace; font-size: 0.88em; }
+:not(pre) > code { background: var(--site-shade); padding: 0.05em 0.25em; border-radius: 2px; overflow-wrap: anywhere; }
+pre {
+  background: var(--site-shade); border: 0.5px solid var(--site-line); border-radius: 3px;
+  padding: 0.75em 0.9em; margin: 0.8em 0 1.1em; overflow-x: auto; line-height: 1.4;
+}
+pre code { font-size: 1em; background: none; padding: 0; }
+/* long lines wrap, with continuation lines indented under their first */
+pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+pre .ln { display: block; padding-left: 2.5ch; text-indent: -2.5ch; }
+/* selected text in ink, not the system's highlight colour */
+::selection { background: var(--cogra-ink); color: var(--cogra-paper); }
+.cogra-tablewrap { overflow-x: auto; margin: 0.8em 0 1.2em; }
+.content table { border-collapse: collapse; font-size: 0.94em; border-top: 0.75px solid var(--cogra-rule); border-bottom: 0.75px solid var(--cogra-rule); }
+.content thead tr { border-bottom: 0.5px solid var(--cogra-rule); }
+.content th { font-weight: 400; font-style: italic; text-align: left; }
+.content th, .content td { padding: 0.3em 1em 0.3em 0; vertical-align: top; }
+
+/* figures are black ink on white; in dark mode, a microfilm negative */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .ink-img { filter: invert(0.91); }
+}
+:root[data-theme="dark"] .ink-img { filter: invert(0.91); }
+
+/* ---------- home ---------- */
+.home h1 { font-size: 2.6rem; margin: 0.3em 0 0.6em; }
+.home-strip { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1.4rem; margin: 0 0 2.2rem; }
+.home-strip a { display: block; aspect-ratio: 1; border: 2px solid var(--cogra-ink); overflow: hidden; }
+.home-strip img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.home-row { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.6fr) minmax(0, 1fr); gap: 2rem; align-items: start; }
+.home-box { border: 0.5px solid var(--site-line); border-radius: 4px; padding: 1.2rem 1.6rem 1rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); }
+.home-box h2 { font-size: 1.4rem; border: 0; margin: 0 0 0.6rem; padding: 0; }
+.home-box ul { padding-left: 0; list-style: none; margin: 0; }
+.home-box li { margin: 0.35em 0; }
+.home-box.features ul { padding-left: 1.1em; list-style: disc; }
+.home-box .sep { color: var(--cogra-ink-soft); padding: 0 0.3em; }
+
+/* ---------- worn printing ----------
+   On (html.worn, the default): text goes through the archival-scan filter
+   from cogra-filters.html, figures switch to their save_vintage copies, and
+   dust specks lie over the page. The filter goes on each block of text, not
+   on the whole page, which browsers render much faster. */
+html:not(.worn) .worn-only, html.worn .clean-only { display: none !important; }
+
+html.worn :is(.content, .home, .home-intro, .api-group) > :is(p, h1, h2, h3, h4, ul, ol, pre, .cogra-tablewrap, details, .controls),
+html.worn :is(.home-box, .sidebar nav, .sidebar summary, .site-title span, .site-nav, .site-tools, .site-foot-inner),
+html.worn .geom > :is(h3, pre, .api),
+html.worn .api-entry > :is(pre, .api-doc, .api-src),
+html.worn .paper-card > :is(h3, p) { filter: url(#cogra-scan); }
+
+body { position: relative; }
+html.worn body::after {
+  content: ""; position: absolute; inset: 0; z-index: 5; pointer-events: none;
+  background-image: url("web/cogra-specks-a.png"), url("web/cogra-specks-b.png");
+  background-size: 1100px 1100px, 1530px 1530px;
+  background-position: 0 0, 317px 589px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]).worn body::after { filter: invert(1); }
+}
+:root[data-theme="dark"].worn body::after { filter: invert(1); }
+/* what a scan keeps: rules of at least a pixel, ink on bare paper. Hairlines
+   and grey fills would come out broken or blotchy through the filter. */
+html.worn a { text-decoration-thickness: 1px; }
+html.worn a:hover { text-decoration-thickness: 2px; }
+html.worn :not(pre) > code { background: none; padding: 0; }
+/* Courier's hairline strokes fall below the scan's threshold; a little ink
+   spread before the filter keeps code legible, as on a real copy */
+html.worn :is(code, pre) { -webkit-text-stroke: 0.45px currentColor; }
+html.worn .geom pre { font-size: 0.8em; }
+html.worn .geom h3 code { -webkit-text-stroke: 0.7px currentColor; }
+html.worn pre { background: none; border: 0; border-radius: 0; border-top: 1.5px solid var(--cogra-ink); border-bottom: 1.5px solid var(--cogra-ink); padding-left: 0.2em; padding-right: 0.2em; }
+html.worn h2 { border-bottom: 1.5px solid var(--cogra-ink); }
+html.worn .home-box h2 { border: 0; }
+html.worn .home-box { border: 1.5px solid var(--cogra-ink); border-radius: 0; box-shadow: none; }
+html.worn :is(.api-entry, .controls, .site-foot) { border-color: var(--cogra-ink-soft); border-width: 1.5px; }
+html.worn .sidebar a { border-left-color: var(--cogra-ink-soft); }
+/* the filter dims light ink a little; start a little brighter in dark mode */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]).worn { --cogra-ink: #FFFFFF; }
+}
+:root[data-theme="dark"].worn { --cogra-ink: #FFFFFF; }
+.site-figure { margin: 1em 0 1.4em; }
+.site-figure img { display: block; }
+/* samples show their own printing: the site's specks never fall on them.
+   The cogra.css demo and specimen carry specks only when they are worn;
+   gallery figures are shown exactly as save_vintage saves them. */
+:is(.demo-live, .demo-frame, .geom img, .home-strip, .site-figure, .paper-card img) { position: relative; z-index: 6; }
+.worn-toggle { display: flex; align-items: center; gap: 0.4rem; color: var(--cogra-ink-soft); cursor: pointer; white-space: nowrap; }
+
+/* ---------- gallery ---------- */
+.controls {
+  display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem; align-items: center;
+  font-size: 0.95em; margin: 0 0 1.4em; padding: 0.55em 0;
+  border-top: 0.5px solid var(--site-line); border-bottom: 0.5px solid var(--site-line);
+}
+.controls label { cursor: pointer; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: 1.8rem 1.5rem; }
+.geom { margin: 0; scroll-margin-top: calc(var(--site-bar) + 0.8rem); }
+.geom h3 { font-style: normal; margin: 0 0 0.35em; font-size: 1rem; }
+.geom img { display: block; width: 100%; border: 0.5px solid var(--site-line); }
+.geom pre { font-size: 0.76em; margin: 0.45em 0 0.25em; white-space: pre-wrap; overflow-wrap: anywhere; }
+.geom .api { font-size: 0.85em; font-style: italic; }
+details.setup summary { cursor: pointer; font-style: italic; margin-bottom: 0.4em; }
+
+/* ---------- API reference ---------- */
+.api-entry { border-top: 0.5px solid var(--site-line); padding: 1em 0 0.6em; }
+.api-sig { margin: 0 0 0.6em; white-space: pre-wrap; }
+.api-sig .name { font-weight: 700; }
+.api-doc { white-space: pre-line; margin: 0 0 0.3em 1.2em; }
+.api-src { font-size: 0.85em; font-style: italic; margin-left: 1.2em; }
+.api-methods { margin-left: 1.6em; }
+
+/* ---------- web styling demo ---------- */
+.demo-frame { width: 100%; height: 75vh; min-height: 30rem; border: 0.5px solid var(--site-line); }
+.demo-live { background: var(--cogra-desk); padding: 1.5rem 1rem; margin: 0.4em 0 1.4em; border-radius: 3px; }
+.demo-live .cogra-page { max-width: 34em; }
+
+/* ---------- papers ---------- */
+.papers { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.8rem; margin: 1.2em 0; }
+.paper-card img { border: 0.5px solid var(--site-line); display: block; }
+.paper-card h3 { margin: 0.6em 0 0.2em; }
+.paper-card p { font-size: 0.95em; }
+
+.site-foot { border-top: 0.5px solid var(--site-line); font-size: 0.88rem; color: var(--cogra-ink-soft); }
+.site-foot-inner { max-width: 90rem; margin: 0 auto; padding: 1.2rem 1.5rem 2rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2rem; }
+
+@media (max-width: 64rem) {
+  .home-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .home-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .home-intro { grid-column: 1 / -1; }
+}
+@media (max-width: 52rem) {
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 0; padding: 0 1rem; }
+  .sidebar { position: static; max-height: none; padding: 1rem 0 0.4rem; border-bottom: 0.5px solid var(--site-line); }
+  .sidebar summary::before { content: "▸ "; }
+  .sidebar details[open] summary::before { content: "▾ "; }
+  .site-head { position: static; }
+  html { scroll-padding-top: 0.8rem; }
+  .site-head-inner, .home, .site-foot-inner { padding-left: 1rem; padding-right: 1rem; }
+  .site-tools { margin-left: 0; }
+  .home h1 { font-size: 1.9rem; }
+  .home-strip { gap: 0.7rem; }
+  .home-row { grid-template-columns: minmax(0, 1fr); }
+  .demo-live { padding: 0.8rem 0.4rem; }
+  .demo-live .cogra-page { padding: 1.2em 1em 1.6em; }
+  .demo-live .cogra-runhead { flex-wrap: wrap; gap: 0.2em 1em; }
+  .content td code, .content th code { white-space: normal; overflow-wrap: anywhere; }
+}
+/*read lwg nov26*/
